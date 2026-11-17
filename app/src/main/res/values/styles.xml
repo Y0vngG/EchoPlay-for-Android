@@ -1,0 +1,3 @@
+<resources>
+    <style name="EchoPlayTheme" parent="android:style/Theme.Material.Light.NoActionBar" />
+</resources>
