@@ -2,9 +2,9 @@
 
 一款支持 B 站音轨播放和本地曲库管理的 Android 播放器。最低支持 Android 8.0（API 26）。
 
-[![查看 Android 发行版](https://img.shields.io/badge/Android-%E6%9F%A5%E7%9C%8B%E5%8F%91%E8%A1%8C%E7%89%88-3DDC84?style=for-the-badge)](https://github.com/Y0vngG/EchoPlay-for-Android/releases)
+[![下载 Android APK](https://img.shields.io/badge/Android-%E4%B8%8B%E8%BD%BD%20APK-3DDC84?style=for-the-badge)](https://github.com/Y0vngG/EchoPlay-for-Android/releases/download/v0.1.0-preview/EchoPlay-Android-v0.1.0-debug.apk)
 
-发行版发布后，可在 Releases 页面下载 APK 并在手机上打开安装。也可以按下方步骤从源码运行。
+点击按钮可下载 v0.1.0 调试预览版，然后在手机上打开 APK 安装。 [发行说明](https://github.com/Y0vngG/EchoPlay-for-Android/releases/tag/v0.1.0-preview)
 
 ## 主要功能
 
