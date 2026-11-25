@@ -1,3 +1,6 @@
 <resources>
-    <color name="launcher_background">#10159E</color>
+    <color name="echoplay_launch_background_light">#E9EDFC</color>
+    <color name="echoplay_launch_background_dark">#10152F</color>
+    <color name="echoplay_launch_background">@color/echoplay_launch_background_light</color>
+    <bool name="echoplay_launch_dark_system_icons">true</bool>
 </resources>

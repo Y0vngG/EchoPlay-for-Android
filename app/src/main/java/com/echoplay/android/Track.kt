@@ -12,7 +12,11 @@ data class Track(
     val videoTitle: String = title,
     val libraryEntryId: String = "",
     val collectionId: String? = null,
+    val artist: String? = null,
 )
 
 val Track.libraryId: String
     get() = libraryEntryId.ifBlank { "$bvid:$pageNumber" }
+
+internal val Track.playbackArtist: String
+    get() = artist ?: author

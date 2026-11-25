@@ -1,3 +1,24 @@
 <resources>
     <style name="EchoPlayTheme" parent="android:style/Theme.Material.Light.NoActionBar" />
+
+    <style name="EchoPlayStartingTheme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/echoplay_launch_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echoplay_splash_mark</item>
+        <item name="postSplashScreenTheme">@style/EchoPlayTheme</item>
+        <item name="android:statusBarColor">?attr/windowSplashScreenBackground</item>
+        <item name="android:navigationBarColor">?attr/windowSplashScreenBackground</item>
+        <item name="android:windowLightStatusBar">@bool/echoplay_launch_dark_system_icons</item>
+    </style>
+
+    <style name="EchoPlayStartingTheme.Light">
+        <item name="windowSplashScreenBackground">@color/echoplay_launch_background_light</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echoplay_mark_light</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="EchoPlayStartingTheme.Dark">
+        <item name="windowSplashScreenBackground">@color/echoplay_launch_background_dark</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/echoplay_mark</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
 </resources>

@@ -1,0 +1,7 @@
+<resources>
+    <item type="drawable" name="echoplay_splash_mark">@drawable/echoplay_mark_light</item>
+    <string name="echoplay_orbit_back_path" translatable="false">M 24.85 63.41 C 25.61 57.95 37.20 50.72 52.07 46.78 C 66.01 42.74 79.45 42.41 82.81 46.02 C 84.58 48.12 83.06 51.31 79.45 54.25</string>
+    <string name="echoplay_note_path" translatable="false">M 52.07 59.12 L 53.75 32.92 C 53.92 30.82 56.02 29.98 57.70 30.98 L 65.84 36.28 C 70.13 39.13 72.48 42.83 72.14 46.86 C 72.06 49.72 71.05 51.98 70.21 52.99 C 69.71 53.58 69.12 53.33 68.95 52.57 C 68.78 48.88 66.77 47.36 63.24 45.85 L 58.20 43.84 Q 57.95 43.67 57.95 44.17 L 57.02 64.67 C 57.02 69.79 54.84 74.24 50.39 76.26 C 45.77 78.36 41.15 76.76 39.05 73.15 C 37.28 70.21 38.04 66.43 40.22 63.58 C 42.91 59.88 47.62 57.78 52.07 59.12 Z</string>
+    <string name="echoplay_orbit_front_path" translatable="false">M 24.85 63.41 C 24.52 65.76 26.95 68.03 31.66 68.28 C 42.66 69.88 60.38 66.43 73.66 58.79 C 76.43 57.02 78.36 55.43 79.45 54.25</string>
+    <string name="echoplay_orb_path" translatable="false">M79.45,51.16 A3.09,3.09 0,1 1,79.45,57.34 A3.09,3.09 0,1 1,79.45,51.16 Z</string>
+</resources>

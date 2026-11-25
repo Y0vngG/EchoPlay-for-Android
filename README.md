@@ -2,9 +2,16 @@
 
 一款支持 B 站音轨播放和本地曲库管理的 Android 播放器。最低支持 Android 8.0（API 26）。
 
-[![下载 Android APK](https://img.shields.io/badge/Android-%E4%B8%8B%E8%BD%BD%20APK-3DDC84?style=for-the-badge)](https://github.com/Y0vngG/EchoPlay-for-Android/releases/download/v0.1.0-preview/EchoPlay-Android-v0.1.0-debug.apk)
+[![下载 EchoPlay 0.1.3 APK](https://img.shields.io/badge/Android-0.1.3-3DDC84?style=for-the-badge)](https://github.com/Y0vngG/EchoPlay-for-Android/releases/download/v0.1.3/EchoPlay-0.1.3.apk)
 
-点击按钮可下载 v0.1.0 调试预览版，然后在手机上打开 APK 安装。 [发行说明](https://github.com/Y0vngG/EchoPlay-for-Android/releases/tag/v0.1.0-preview)
+下载 `EchoPlay-0.1.3.apk` 后，在手机上打开安装。此前发布的 0.1.0 版可直接覆盖升级。 [0.1.3 发行说明](https://github.com/Y0vngG/EchoPlay-for-Android/releases/tag/v0.1.3)
+
+## 0.1.3 更新
+
+- 支持新建、重命名和编辑播放列表，以及将视频合集添加到曲库。
+- 弹窗随可用空间调整尺寸。键盘弹出时，表单可滚动，底部操作按钮仍可点击。
+- 放大细长屏上的弹窗按钮与播放列表更多菜单，更新浅色主题配色。
+- 优化播放进度刷新、队列拖动和后台通知更新。
 
 ## 主要功能
 

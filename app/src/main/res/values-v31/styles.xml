@@ -1,7 +1,0 @@
-<resources>
-    <style name="EchoPlayTheme" parent="android:style/Theme.Material.Light.NoActionBar">
-        <item name="android:windowSplashScreenBackground">#FCF7FF</item>
-        <item name="android:windowSplashScreenAnimatedIcon">@drawable/echoplay_logo</item>
-        <item name="android:windowSplashScreenIconBackgroundColor">#10159E</item>
-    </style>
-</resources>

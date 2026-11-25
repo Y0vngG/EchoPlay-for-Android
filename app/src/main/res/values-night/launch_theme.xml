@@ -1,0 +1,5 @@
+<resources>
+    <color name="echoplay_launch_background">@color/echoplay_launch_background_dark</color>
+    <bool name="echoplay_launch_dark_system_icons">false</bool>
+    <item type="drawable" name="echoplay_splash_mark">@drawable/echoplay_mark</item>
+</resources>

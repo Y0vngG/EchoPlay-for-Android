@@ -17,7 +17,6 @@ data class PlaybackStream(
     val urls: List<String>,
     val description: String,
     val headers: Map<String, String>,
-    val containsVideo: Boolean,
 )
 
 data class BilibiliUserProfile(
@@ -351,7 +350,6 @@ class BilibiliRepository {
                         urls = listOf(streamUrl),
                         description = preferredQuality.playbackStatus,
                         headers = headers,
-                        containsVideo = false,
                     )
                 }
             }
@@ -401,7 +399,7 @@ class BilibiliRepository {
                 if (urls.isEmpty()) continue
 
                 val description = "\u97f3\u89c6\u9891\uff08${preferredQuality.playbackStatus}\uff09"
-                return PlaybackStream(urls, description, headers, containsVideo = true)
+                return PlaybackStream(urls, description, headers)
             }
         }
 
@@ -457,7 +455,7 @@ class BilibiliRepository {
     }
 
     private fun unescapeTitle(value: String): String = value
-        .replace(Regex("</?em[^>]*>"), "")
+        .replace(SEARCH_HIGHLIGHT_TAG, "")
         .replace("&amp;", "&")
         .replace("&lt;", "<")
         .replace("&gt;", ">")
@@ -484,6 +482,8 @@ class BilibiliRepository {
         .replace("+", "%20")
 
     private companion object {
+        val SEARCH_HIGHLIGHT_TAG = Regex("</?em[^>]*>")
+
         init {
             if (CookieHandler.getDefault() == null) {
                 CookieHandler.setDefault(CookieManager(null, CookiePolicy.ACCEPT_ALL))

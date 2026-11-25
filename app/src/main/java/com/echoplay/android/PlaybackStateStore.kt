@@ -1,24 +1,43 @@
 package com.echoplay.android
 
 import android.content.Context
+import androidx.core.content.edit
 import org.json.JSONArray
 import org.json.JSONObject
+
+enum class PlaybackRepeatMode {
+    Off,
+    List,
+    Single,
+}
 
 data class SavedPlaybackState(
     val currentTrack: Track,
     val queue: List<Track>,
     val positionMs: Long,
-    val volume: Float,
     val shuffleEnabled: Boolean,
     val wasPlaying: Boolean,
+    val repeatMode: PlaybackRepeatMode = PlaybackRepeatMode.Off,
+    val playlistId: String? = null,
 )
 
 class PlaybackStateStore(context: Context) {
     private val preferences = context.applicationContext
         .getSharedPreferences("playback_state", Context.MODE_PRIVATE)
 
+    private var lastSavedState: SavedPlaybackState? = null
+
+    fun loadVolume(): Float = preferences.getFloat(KEY_APP_VOLUME, 1f)
+        .takeIf(Float::isFinite)
+        ?.coerceIn(0f, 1f) ?: 1f
+
+    fun saveVolume(volume: Float) {
+        preferences.edit { putFloat(KEY_APP_VOLUME, volume) }
+    }
+
     fun load(): SavedPlaybackState? = runCatching {
-        val root = preferences.getString(KEY_STATE, null)?.let(::JSONObject) ?: return null
+        val values = preferences.all
+        val root = (values[KEY_STATE] as? String)?.let(::JSONObject) ?: return null
         val current = root.optJSONObject("current")?.toTrack() ?: return null
         val queueJson = root.optJSONArray("queue") ?: JSONArray()
         val queue = buildList {
@@ -29,23 +48,43 @@ class PlaybackStateStore(context: Context) {
         SavedPlaybackState(
             currentTrack = current,
             queue = queue.ifEmpty { listOf(current) },
-            positionMs = root.optLong("positionMs", 0L).coerceAtLeast(0L),
-            volume = root.optDouble("volume", 1.0).toFloat().coerceIn(0f, 1f),
+            positionMs = ((values[KEY_POSITION] as? Long) ?: root.optLong("positionMs", 0L)).coerceAtLeast(0L),
             shuffleEnabled = root.optBoolean("shuffleEnabled", false),
             wasPlaying = root.optBoolean("wasPlaying", false),
+            repeatMode = PlaybackRepeatMode.entries.firstOrNull { it.name == root.optString("repeatMode") }
+                ?: PlaybackRepeatMode.Off,
+            playlistId = root.optString("playlistId").takeIf(String::isNotBlank),
         )
     }.getOrNull()
 
     fun save(state: SavedPlaybackState) {
-        val root = JSONObject().apply {
-            put("current", state.currentTrack.toJson())
-            put("queue", JSONArray().apply { state.queue.forEach { put(it.toJson()) } })
-            put("positionMs", state.positionMs.coerceAtLeast(0L))
-            put("volume", state.volume.coerceIn(0f, 1f).toDouble())
-            put("shuffleEnabled", state.shuffleEnabled)
-            put("wasPlaying", state.wasPlaying)
+        val position = state.positionMs.coerceAtLeast(0L)
+        val previous = lastSavedState
+        val metadataChanged = previous == null ||
+            previous.queue != state.queue ||
+            previous.currentTrack != state.currentTrack ||
+            previous.shuffleEnabled != state.shuffleEnabled ||
+            previous.wasPlaying != state.wasPlaying ||
+            previous.repeatMode != state.repeatMode ||
+            previous.playlistId != state.playlistId
+        if (!metadataChanged && previous?.positionMs == position) return
+
+        preferences.edit {
+            if (metadataChanged) {
+                val root = JSONObject().apply {
+                    put("current", state.currentTrack.toJson())
+                    put("queue", JSONArray().apply { state.queue.forEach { put(it.toJson()) } })
+                    put("positionMs", position)
+                    put("shuffleEnabled", state.shuffleEnabled)
+                    put("wasPlaying", state.wasPlaying)
+                    put("repeatMode", state.repeatMode.name)
+                    put("playlistId", state.playlistId)
+                }
+                putString(KEY_STATE, root.toString())
+            }
+            putLong(KEY_POSITION, position)
         }
-        preferences.edit().putString(KEY_STATE, root.toString()).apply()
+        lastSavedState = state
     }
 
     private fun Track.toJson() = JSONObject().apply {
@@ -60,6 +99,7 @@ class PlaybackStateStore(context: Context) {
         put("videoTitle", videoTitle)
         put("libraryEntryId", libraryEntryId)
         put("collectionId", collectionId)
+        put("artist", artist)
     }
 
     private fun JSONObject.toTrack() = Track(
@@ -74,9 +114,12 @@ class PlaybackStateStore(context: Context) {
         videoTitle = optString("videoTitle", optString("title")),
         libraryEntryId = optString("libraryEntryId"),
         collectionId = optString("collectionId").takeIf { it.isNotBlank() },
+        artist = if (isNull("artist")) null else optString("artist"),
     )
 
     private companion object {
         const val KEY_STATE = "last_playback"
+        const val KEY_POSITION = "last_playback_position_ms"
+        const val KEY_APP_VOLUME = "app_volume"
     }
 }
